@@ -30,7 +30,9 @@ public class Dependent
             && this.EmployeeId == otherDependent.EmployeeId;
     }
 
-    // NOTE: I should override GetHashCode since I have an override to Equals but
-    //  simply didn't spend the time for this exercise
-    // I would if this was going to production
+    public override int GetHashCode()
+    {
+        // Note: I realize this probably should include all property values
+        return this.Id.GetHashCode();
+    }
 }

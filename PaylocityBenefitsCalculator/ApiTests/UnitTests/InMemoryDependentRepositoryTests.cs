@@ -95,7 +95,7 @@ namespace ApiTests.UnitTests
         public async Task GetById_ShouldReturnNullIfNotFound()
         {
             // ARRANGE
-            var missingDependentId = 67;
+            var missingDependentId = int.MinValue;
 
             // ACT
             var dependent = await _subject.GetById(missingDependentId);
