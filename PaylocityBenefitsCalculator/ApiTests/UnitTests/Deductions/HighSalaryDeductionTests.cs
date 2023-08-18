@@ -5,13 +5,13 @@ using Xunit;
 
 namespace ApiTests.UnitTests.Deductions
 {
-    public class DependentBenefitDeductionTests
+    public class HighSalaryDeductionTests
     {
-        private readonly DependentBenefitDeduction _subject;
+        private readonly HighSalaryDeduction _subject;
 
-        public DependentBenefitDeductionTests()
+        public HighSalaryDeductionTests()
         {
-            _subject = new DependentBenefitDeduction();
+            _subject = new HighSalaryDeduction();
         }
 
         [Fact]
@@ -31,19 +31,10 @@ namespace ApiTests.UnitTests.Deductions
         [Fact]
         public void CalculatePaycheckDeduction_ReturnsExpectedDeduction()
         {
-            decimal expectedDeductionAmount = 830.77m;
+            decimal expectedDeductionAmount = 69.23m;
 
             // ARRANGE
-            var employee = new Employee()
-            {
-                Id = 1,
-                Dependents = new[]
-                {
-                    new Dependent(),
-                    new Dependent(),
-                    new Dependent()
-                }
-            };
+            var employee = new Employee() { Salary = 90000m };
             
             // ACT
             var deductionAmount = _subject.CalculatePaycheckDeduction(employee, 26);
@@ -53,12 +44,15 @@ namespace ApiTests.UnitTests.Deductions
         }
 
         [Fact]
-        public void CalculatePaycheckDeduction_ZeroDependents_ReturnsZeroDeduction()
+        public void CalculatePaycheckDeduction_SalaryTooLow_ReturnsZeroDeduction()
         {
             decimal expectedDeductionAmount = 0.00m;
 
+            // ARRANGE
+            var employee = new Employee() { Salary = 79500m };
+
             // ACT
-            var deductionAmount = _subject.CalculatePaycheckDeduction(new Employee(), 26);
+            var deductionAmount = _subject.CalculatePaycheckDeduction(employee, 26);
 
             // MEASURE
             Assert.Equal(expectedDeductionAmount, deductionAmount);
