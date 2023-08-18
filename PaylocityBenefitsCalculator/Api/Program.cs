@@ -1,3 +1,5 @@
+using Api.Interfaces;
+using Api.Repositories;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,18 @@ builder.Services.AddCors(options =>
     options.AddPolicy(allowLocalhost,
         policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
 });
+
+builder.Services.AddAutoMapper(typeof(Program));
+
+// why: Steve Smith's variation of clean architecture where interfaces are used with dependency injection.
+// Usually core functionality, business logic, and interfaces are separated into different projects from implementations.
+// This yeilds:
+//   -Better separation of concerns
+//   -Increased testability
+//   -Increased maintainability
+//   -Increased readability
+
+builder.Services.AddTransient<IDependentRepository, InMemoryDependentRepository>();
 
 var app = builder.Build();
 
