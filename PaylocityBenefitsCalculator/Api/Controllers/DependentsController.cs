@@ -43,10 +43,10 @@ public class DependentsController : ControllerBase
     {
         var dependents = await _dependentRepository.GetAll();
 
-
         return Ok(new ApiResponse<List<GetDependentDto>>()
         {
-            Data = _mapper.Map<List<GetDependentDto>>(dependents)
+            Data = _mapper.Map<List<GetDependentDto>>(dependents),
+            Success = true
         });
     }
 }

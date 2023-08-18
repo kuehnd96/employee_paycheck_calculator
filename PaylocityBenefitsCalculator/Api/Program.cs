@@ -29,8 +29,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-// why: Steve Smith's variation of clean architecture where interfaces are used with dependency injection.
-// Usually core functionality, business logic, and interfaces are separated into different projects from implementations.
+// why: Using Steve Smith's variation of clean architecture where interfaces are used with dependency injection.
+// Usually core functionality, business logic, and interfaces are separated into different projects from implementations and head projects
 // This yeilds:
 //   -Better separation of concerns
 //   -Increased testability
@@ -38,6 +38,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 //   -Increased readability
 
 builder.Services.AddTransient<IDependentRepository, InMemoryDependentRepository>();
+builder.Services.AddTransient<IEmployeeRepository, InMemoryEmployeeRepository>();
 
 var app = builder.Build();
 
