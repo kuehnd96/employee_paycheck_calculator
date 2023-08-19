@@ -24,7 +24,9 @@ namespace Api.BusinessLogic
                 paycheckDeductionTotal += deduction.CalculatePaycheckDeduction(employee, PaychecksPerYear);
             }
 
-            return (employee.Salary / PaychecksPerYear) - paycheckDeductionTotal;
+            var paycheckAmount =  (employee.Salary / PaychecksPerYear) - paycheckDeductionTotal;
+
+            return Math.Round(paycheckAmount, 2);
         }
     }
 }
