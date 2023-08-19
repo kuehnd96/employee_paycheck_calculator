@@ -13,11 +13,14 @@ public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
     private readonly IMapper _mapper;
+    private readonly IPaycheckCalculator _paycheckCalculator;
 
-    public EmployeesController(IEmployeeRepository employeeRepository, IMapper mapper)
+    public EmployeesController(IEmployeeRepository employeeRepository, 
+        IMapper mapper, IPaycheckCalculator paycheckCalculator)
     {
         _employeeRepository = employeeRepository;
         _mapper = mapper;
+        _paycheckCalculator = paycheckCalculator;
     }
 
 
@@ -48,6 +51,26 @@ public class EmployeesController : ControllerBase
         return Ok(new ApiResponse<List<GetEmployeeDto>>()
         {
             Data = _mapper.Map<List<GetEmployeeDto>>(employees),
+            Success = true
+        });
+    }
+
+    [SwaggerOperation(Summary = "Get paycheck amount")]
+    [HttpGet("{id}/paycheck")]
+    public async Task<ActionResult<ApiResponse<decimal>>> GetPaycheckAmount(int id)
+    {
+        var employee = await _employeeRepository.GetById(id);
+
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        var paycheckAmount = _paycheckCalculator.CalculatePaycheckAmount(employee);
+
+        return Ok(new ApiResponse<decimal>()
+        {
+            Data = paycheckAmount, 
             Success = true
         });
     }
