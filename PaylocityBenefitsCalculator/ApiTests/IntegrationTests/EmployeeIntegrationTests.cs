@@ -106,5 +106,19 @@ public class EmployeeIntegrationTests : IntegrationTest
         var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
         await response.ShouldReturn(HttpStatusCode.NotFound);
     }
+
+    [Fact]
+    public async Task WhenAskedForPaycheckForNonexistentEmployee_ShouldReturn404()
+    {
+        var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}/paycheck");
+        await response.ShouldReturn(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task WhenAskedForPaycheckForEmployee_ShouldReturnCorrectAmount()
+    {
+        var response = await HttpClient.GetAsync($"/api/v1/employees/1/paycheck");
+        await response.ShouldReturn(HttpStatusCode.OK, 2439.27m);
+    }
 }
 
