@@ -1,3 +1,4 @@
+using Api.BusinessLogic;
 using Api.Interfaces;
 using Api.Repositories;
 using Microsoft.OpenApi.Models;
@@ -39,6 +40,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddTransient<IDependentRepository, InMemoryDependentRepository>();
 builder.Services.AddTransient<IEmployeeRepository, InMemoryEmployeeRepository>();
+builder.Services.AddTransient<IDeduction, BaseBenefitDeduction>();
+builder.Services.AddTransient<IDeduction, DependentBenefitDeduction>();
+builder.Services.AddTransient<IDeduction, HighSalaryDeduction>();
+builder.Services.AddTransient<IDeduction, OlderDependentsDeduction>();
+builder.Services.AddTransient<IPaycheckCalculator, BiweeklyPaycheckCalculator>();
 
 var app = builder.Build();
 
