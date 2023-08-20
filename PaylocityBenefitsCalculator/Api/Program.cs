@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
         policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
 });
 
+// why: Decided to use Automapper for faster development of higher quality conversion functionality
 builder.Services.AddAutoMapper(typeof(Program));
 
 // why: Using Steve Smith's variation of clean architecture where interfaces are used with dependency injection.
