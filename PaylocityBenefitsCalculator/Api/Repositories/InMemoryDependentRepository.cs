@@ -4,7 +4,7 @@ using Api.Models;
 namespace Api.Repositories
 {
     // why: Assumed persisted storage was not neccessary for this exercise. The
-    //  use of an interface for this allows easy creation of a new way of storing this data
+    //  use of an interface for this repo allows easy creation of a new way of storing this data
     //  through the implementation of a new class that implements the interface.
     public class InMemoryDependentRepository : IDependentRepository
     {

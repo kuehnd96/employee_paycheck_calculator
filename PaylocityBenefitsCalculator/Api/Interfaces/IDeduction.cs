@@ -14,5 +14,7 @@ namespace Api.Interfaces
         /// <param name="paychecksPerYear">Number of paychecks per year. Must be greater than zero.</param>
         /// <returns>The amount to deduct from the employee's paycheck per pay period.</returns>
         decimal CalculatePaycheckDeduction(Employee? employee, int paychecksPerYear);
+
+        // Note: Could make this async to allow for running multiple calculations at once
     }
 }
